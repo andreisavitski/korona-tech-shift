@@ -1,10 +1,10 @@
 package by.shift.task2.model;
 
-public interface Shape {
+public abstract class Shape {
 
-    String getName();
+    public abstract String getName();
 
-    Double calculateArea();
+    public abstract Double calculateArea();
 
-    Double calculatePerimeter();
+    public abstract Double calculatePerimeter();
 }

@@ -1,13 +1,28 @@
-package by.shift.task2.model.impl;
+package by.shift.task2.model;
 
-import by.shift.task2.model.Shape;
+import lombok.Getter;
 
-import static by.shift.task2.constant.ApplicationConstant.TRIANGLE;
-import static java.lang.Math.acos;
-import static java.lang.Math.sqrt;
-import static java.lang.Math.toDegrees;
+import static by.shift.task2.constant.ApplicationConstant.*;
+import static by.shift.task2.validator.ShapeValidator.*;
+import static java.lang.Math.*;
+import static java.lang.String.*;
 
-public record Triangle(Double firstSide, Double secondSide, Double thirdSide) implements Shape {
+@Getter
+public class Triangle extends Shape {
+
+    private final Double firstSide;
+
+    private final Double secondSide;
+
+    private final Double thirdSide;
+
+    public Triangle(Double firstSide, Double secondSide, Double thirdSide) {
+        this.firstSide = firstSide;
+        this.secondSide = secondSide;
+        this.thirdSide = thirdSide;
+        checkForPositiveNumbers(new String[]{valueOf(firstSide), valueOf(secondSide), valueOf(thirdSide)});
+        checkTriangleSides(new String[]{valueOf(firstSide), valueOf(secondSide), valueOf(thirdSide)});
+    }
 
     @Override
     public String getName() {

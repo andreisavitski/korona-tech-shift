@@ -34,7 +34,7 @@ java -jar Task2-1.0.jar --input=<путь_к_файлу> --output=<метод_в
 
 Например: java -jar Task2-1.0.jar --input=shape.txt --output=file
 
-Результат будет сохранен в файл, путь к которому будет указан в логах.
+Результат будет сохранен в файл result.txt, путь к которому будет указан в логах.
 
 Для запуска из IntelliJIdea в Run Configuration в поле program arguments указываем:
 

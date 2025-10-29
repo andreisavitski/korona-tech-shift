@@ -1,17 +1,18 @@
 package by.shift.task2.parser.impl;
 
+import by.shift.task2.model.Circle;
 import by.shift.task2.model.Shape;
-import by.shift.task2.model.impl.Circle;
 import by.shift.task2.parser.ShapeParserStrategy;
 import by.shift.task2.validator.ShapeValidator;
 
 import java.util.List;
 
-import static by.shift.task2.constant.ApplicationConstant.NUMBER_OF_CIRCLE_PARAMETERS;
-import static by.shift.task2.util.Separator.splitParameters;
-import static java.lang.Double.parseDouble;
+import static by.shift.task2.util.Separator.*;
+import static java.lang.Double.*;
 
 public class CircleParser implements ShapeParserStrategy {
+
+    private static final Integer NUMBER_OF_CIRCLE_PARAMETERS = 1;
 
     @Override
     public Shape parse(final List<String> lines) {

@@ -8,9 +8,7 @@ import by.shift.task2.parser.impl.TriangleParser;
 
 import java.util.Map;
 
-import static by.shift.task2.enums.ShapeType.CIRCLE;
-import static by.shift.task2.enums.ShapeType.RECTANGLE;
-import static by.shift.task2.enums.ShapeType.TRIANGLE;
+import static by.shift.task2.enums.ShapeType.*;
 
 public class ShapeParserResolver {
 

@@ -1,11 +1,11 @@
 package by.shift.task2.validator;
 
+import by.shift.task2.exeption.ApplicationException;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class ShapeValidatorTest {
 
@@ -16,7 +16,7 @@ class ShapeValidatorTest {
 
     @Test
     void checkIfNumbers_invalidNumber_throwsException() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(ApplicationException.class,
                 () -> ShapeValidator.checkIfNumbers(new String[]{"1", "a", "3"}));
     }
 
@@ -27,9 +27,9 @@ class ShapeValidatorTest {
 
     @Test
     void checkForPositiveNumbers_containsZeroOrNegative_throwsException() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(ApplicationException.class,
                 () -> ShapeValidator.checkForPositiveNumbers(new String[]{"1", "-2", "3"}));
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(ApplicationException.class,
                 () -> ShapeValidator.checkForPositiveNumbers(new String[]{"0", "2", "3"}));
     }
 
@@ -40,7 +40,7 @@ class ShapeValidatorTest {
 
     @Test
     void checkTriangleSides_invalidTriangle_throwsException() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(ApplicationException.class,
                 () -> ShapeValidator.checkTriangleSides(new String[]{"1", "2", "10"}));
     }
 
@@ -53,7 +53,7 @@ class ShapeValidatorTest {
 
     @Test
     void checkShapeType_invalidType_throwsException() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(ApplicationException.class,
                 () -> ShapeValidator.checkShapeType(List.of("ШИФТ")));
     }
 }

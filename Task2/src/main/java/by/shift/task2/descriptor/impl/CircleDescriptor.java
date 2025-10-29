@@ -1,22 +1,27 @@
 package by.shift.task2.descriptor.impl;
 
 import by.shift.task2.descriptor.ShapeDescriptorStrategy;
-import by.shift.task2.model.Shape;
-import by.shift.task2.model.impl.Circle;
+import by.shift.task2.model.Circle;
 
-import static by.shift.task2.constant.ApplicationConstant.CIRCLE_FORMAT;
-import static java.lang.String.format;
+import static java.lang.String.*;
 
-public class CircleDescriptor implements ShapeDescriptorStrategy {
+public class CircleDescriptor implements ShapeDescriptorStrategy<Circle> {
+
+    private static final String CIRCLE_FORMAT = """
+            Тип фигуры: %s
+            Площадь: %.2f кв. см
+            Периметр: %.2f см
+            Радиус: %.2f см
+            Диаметр: %.2f см
+            """;
 
     @Override
-    public String describe(final Shape shape) {
-        final Circle circle = (Circle) shape;
+    public String describe(final Circle circle) {
         return format(CIRCLE_FORMAT,
                 circle.getName(),
                 circle.calculateArea(),
                 circle.calculatePerimeter(),
-                circle.radius(),
+                circle.getRadius(),
                 circle.calculateDiameter()
         );
     }

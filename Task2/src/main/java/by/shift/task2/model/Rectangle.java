@@ -1,11 +1,24 @@
-package by.shift.task2.model.impl;
+package by.shift.task2.model;
 
-import by.shift.task2.model.Shape;
+import lombok.Getter;
 
-import static by.shift.task2.constant.ApplicationConstant.RECTANGLE;
-import static java.lang.Math.hypot;
+import static by.shift.task2.constant.ApplicationConstant.*;
+import static by.shift.task2.validator.ShapeValidator.*;
+import static java.lang.Math.*;
+import static java.lang.String.*;
 
-public record Rectangle(Double firstSide, Double secondSide) implements Shape {
+@Getter
+public class Rectangle extends Shape {
+
+    private final Double firstSide;
+
+    private final Double secondSide;
+
+    public Rectangle(Double firstSide, Double secondSide) {
+        this.firstSide = firstSide;
+        this.secondSide = secondSide;
+        checkForPositiveNumbers(new String[]{valueOf(firstSide), valueOf(secondSide)});
+    }
 
     @Override
     public String getName() {

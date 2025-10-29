@@ -1,11 +1,11 @@
 package by.shift.task2.util;
 
+import by.shift.task2.exeption.ApplicationException;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertArrayEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 class SeparatorTest {
 
@@ -17,7 +17,7 @@ class SeparatorTest {
 
     @Test
     void splitParameters_incorrectNumber_throwsException() {
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(ApplicationException.class,
                 () -> Separator.splitParameters(List.of("КРУГ", "5 10"), 1));
     }
 }

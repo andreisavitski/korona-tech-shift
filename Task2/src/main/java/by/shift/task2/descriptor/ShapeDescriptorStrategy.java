@@ -2,7 +2,7 @@ package by.shift.task2.descriptor;
 
 import by.shift.task2.model.Shape;
 
-public interface ShapeDescriptorStrategy {
+public interface ShapeDescriptorStrategy<T extends Shape> {
 
-    String describe(Shape shape);
+    String describe(T shape);
 }

@@ -13,21 +13,25 @@ import by.shift.task2.validator.DataValidator;
 import by.shift.task2.validator.ShapeValidator;
 import org.slf4j.Logger;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
 
-import static by.shift.task2.constant.ApplicationConstant.ERROR_EXECUTING_PROGRAM;
-import static by.shift.task2.constant.ApplicationConstant.FILE_READ_SUCCESSFULLY;
-import static by.shift.task2.constant.ApplicationConstant.FINISH_PROGRAM;
-import static by.shift.task2.constant.ApplicationConstant.INPUT;
-import static by.shift.task2.constant.ApplicationConstant.OUTPUT;
-import static by.shift.task2.constant.ApplicationConstant.SHAPE_SUCCESSFULLY_CREATED;
-import static by.shift.task2.constant.ApplicationConstant.START_PROGRAM;
-import static by.shift.task2.constant.ApplicationConstant.TYPE_OF_SHAPE_IS_DETERMINED;
-import static org.slf4j.LoggerFactory.getLogger;
+import static by.shift.task2.constant.ApplicationConstant.*;
+import static org.slf4j.LoggerFactory.*;
 
 public class ShapeApplication {
+
+    private static final String START_PROGRAM = "Запуск программы с аргументами: {}";
+
+    private static final String FINISH_PROGRAM = "Завершение программы";
+
+    private static final String FILE_READ_SUCCESSFULLY = "Файл '{}' успешно прочитан. Количество строк: {}";
+
+    private static final String TYPE_OF_SHAPE_IS_DETERMINED = "Определен тип фигуры: {}";
+
+    private static final String SHAPE_SUCCESSFULLY_CREATED = "Фигура успешно создана: {}";
 
     private static final Logger logger = getLogger(ShapeApplication.class);
 
@@ -54,14 +58,14 @@ public class ShapeApplication {
             logger.info(SHAPE_SUCCESSFULLY_CREATED, shape.getName());
 
             final ShapeDescriptorResolver shapeDescriptorResolver = new ShapeDescriptorResolver();
-            final ShapeDescriptorStrategy shapeDescriptorStrategy =
+            final ShapeDescriptorStrategy<Shape> shapeDescriptorStrategy =
                     shapeDescriptorResolver.getShapeDescriptorStrategy(shapeType);
             final String description = shapeDescriptorStrategy.describe(shape);
 
             final DataWriter dataWriter = new DataWriter();
             dataWriter.write(description, outputMethod);
-        } catch (Exception e) {
-            logger.error(ERROR_EXECUTING_PROGRAM, e.getMessage(), e);
+        } catch (IOException e) {
+            logger.error(e.getMessage());
         }
         logger.info(FINISH_PROGRAM);
     }
