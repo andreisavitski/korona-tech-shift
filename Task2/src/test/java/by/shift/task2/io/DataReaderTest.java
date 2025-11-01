@@ -7,17 +7,17 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DataReaderTest {
-
-    private final DataReader reader = new DataReader();
 
     @Test
     void readLines_validFile_shouldReturnLines() throws Exception {
         Path tempFile = Files.createTempFile("test", ".txt");
         Files.writeString(tempFile, "CIRCLE\n5");
-        List<String> lines = reader.readLines(tempFile);
+        List<String> lines = DataReader.readLines(tempFile);
         assertEquals(2, lines.size());
         assertEquals("CIRCLE", lines.get(0));
         assertEquals("5", lines.get(1));
@@ -29,7 +29,7 @@ class DataReaderTest {
         Path fakePath = Path.of("nonexist.txt");
         ApplicationException e = assertThrows(
                 ApplicationException.class,
-                () -> reader.readLines(fakePath)
+                () -> DataReader.readLines(fakePath)
         );
         assertTrue(e.getMessage().contains("Файл не найден"));
     }

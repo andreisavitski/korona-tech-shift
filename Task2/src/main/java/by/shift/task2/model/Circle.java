@@ -1,20 +1,22 @@
 package by.shift.task2.model;
 
+import by.shift.task2.validator.ShapeValidator;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-import static by.shift.task2.constant.ApplicationConstant.*;
-import static by.shift.task2.validator.ShapeValidator.*;
-import static java.lang.Math.*;
-import static java.lang.String.*;
+import static by.shift.task2.constant.ApplicationConstant.CIRCLE;
+import static java.lang.Math.PI;
+import static java.lang.String.valueOf;
 
 @Getter
+@EqualsAndHashCode(callSuper = false)
 public class Circle extends Shape {
 
     private final Double radius;
 
     public Circle(Double radius) {
         this.radius = radius;
-        checkForPositiveNumbers(new String[]{valueOf(radius)});
+        ShapeValidator.checkForPositiveNumbers(new String[]{valueOf(radius)});
     }
 
     @Override

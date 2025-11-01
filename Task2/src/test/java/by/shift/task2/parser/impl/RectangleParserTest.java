@@ -7,26 +7,29 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class RectangleParserTest {
 
     private final RectangleParser parser = new RectangleParser();
 
     @Test
-    void parse_validRectangle_returnsShape() {
-        Shape shape = parser.parse(List.of("ПРЯМОУГОЛЬНИК", "5 10"));
-        assertEquals(5, ((Rectangle) shape).getWidth());
-        assertEquals(10, ((Rectangle) shape).getLength());
+    void parse_validRectangle_shouldReturnShape() {
+        List<String> lines = List.of("ПРЯМОУГОЛЬНИК", "5 10");
+        Rectangle expected = new Rectangle(5d, 10d);
+        Shape actual = parser.parse(lines);
+        assertEquals(expected, actual);
+
     }
 
     @Test
-    void parse_negativeSide_throwsException() {
+    void parse_negativeSide_shouldThrow() {
         assertThrows(ApplicationException.class, () -> parser.parse(List.of("ПРЯМОУГОЛЬНИК", "-5 10")));
     }
 
     @Test
-    void parse_notANumber_throwsException() {
+    void parse_notNumber_shouldThrow() {
         assertThrows(ApplicationException.class, () -> parser.parse(List.of("RECTANGLE", "a 10")));
     }
 }

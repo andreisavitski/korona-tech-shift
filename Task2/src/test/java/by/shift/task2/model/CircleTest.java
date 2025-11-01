@@ -1,46 +1,36 @@
 package by.shift.task2.model;
 
 import by.shift.task2.exeption.ApplicationException;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
-import static by.shift.task2.constant.ApplicationConstant.*;
-import static java.lang.Math.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static by.shift.task2.constant.ApplicationConstant.CIRCLE;
+import static java.lang.Math.PI;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class CircleTest {
 
-    @Test
-    void constructor_validRadius_shouldCreateCircle() {
-        Circle circle = new Circle(5.0);
-        assertEquals(5.0, circle.getRadius());
-    }
-
-    @Test
-    void constructor_negativeRadius_shouldThrow() {
-        assertThrows(ApplicationException.class, () -> new Circle(-3.0));
-    }
-
-    @Test
-    void getName_shouldReturnCircle() {
-        Circle circle = new Circle(4.0);
+    @ParameterizedTest
+    @CsvSource({
+            "7788.0",
+            "1.0"
+    })
+    void circleParameterizedTests(Double radius) {
+        Circle circle = new Circle(radius);
+        assertEquals(radius, circle.getRadius());
         assertEquals(CIRCLE, circle.getName());
+        assertEquals(PI * radius * radius, circle.calculateArea(), 1e-9);
+        assertEquals(2 * PI * radius, circle.calculatePerimeter(), 1e-9);
+        assertEquals(2 * radius, circle.calculateDiameter());
     }
 
-    @Test
-    void calculateArea_shouldReturnCorrectValue() {
-        Circle circle = new Circle(2.0);
-        assertEquals(PI * 4, circle.calculateArea(), 1e-9);
-    }
-
-    @Test
-    void calculatePerimeter_shouldReturnCorrectValue() {
-        Circle circle = new Circle(3.0);
-        assertEquals(2 * PI * 3, circle.calculatePerimeter(), 1e-9);
-    }
-
-    @Test
-    void calculateDiameter_shouldReturnCorrectValue() {
-        Circle circle = new Circle(7.5);
-        assertEquals(15.0, circle.calculateDiameter());
+    @ParameterizedTest
+    @CsvSource({
+            "-9379992.0",
+            "-0.0"
+    })
+    void constructor_negativeRadius_shouldThrow(Double radius) {
+        assertThrows(ApplicationException.class, () -> new Circle(radius));
     }
 }

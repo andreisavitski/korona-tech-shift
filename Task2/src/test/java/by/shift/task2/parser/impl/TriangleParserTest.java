@@ -7,32 +7,33 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class TriangleParserTest {
 
     private final TriangleParser parser = new TriangleParser();
 
     @Test
-    void parse_validTriangle_returnsShape() {
-        Shape shape = parser.parse(List.of("ТРЕУГОЛЬНИК", "3 4 5"));
-        assertEquals(3, ((Triangle) shape).getFirstSide());
-        assertEquals(4, ((Triangle) shape).getSecondSide());
-        assertEquals(5, ((Triangle) shape).getThirdSide());
+    void parse_validTriangle_shouldReturnsShape() {
+        List<String> lines = List.of("ТРЕУГОЛЬНИК", "3 4 5");
+        Triangle expected = new Triangle(3d, 4d, 5d);
+        Shape actual = parser.parse(lines);
+        assertEquals(expected, actual);
     }
 
     @Test
-    void parse_invalidSides_throwsException() {
+    void parse_invalidSides_shouldThrow() {
         assertThrows(ApplicationException.class, () -> parser.parse(List.of("ТРЕУГОЛЬНИК", "1 2 10")));
     }
 
     @Test
-    void parse_negativeSide_throwsException() {
+    void parse_negativeSide_shouldThrow() {
         assertThrows(ApplicationException.class, () -> parser.parse(List.of("ТРЕУГОЛЬНИК", "-3 4 5")));
     }
 
     @Test
-    void parse_notANumber_throwsException() {
+    void parse_notNumber_shouldThrow() {
         assertThrows(ApplicationException.class, () -> parser.parse(List.of("ТРЕУГОЛЬНИК", "a 4 5")));
     }
 }

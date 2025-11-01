@@ -2,14 +2,14 @@
 <configuration>
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-            <pattern>%black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1}): %msg%n%throwable</pattern>
+            <pattern>%cyan(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1}): %msg%n%throwable</pattern>
         </encoder>
     </appender>
 
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
         <file>shape-application.log</file>
         <encoder>
-            <pattern>%black(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1}): %msg%n%throwable</pattern>
+            <pattern>%cyan(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1}): %msg%n%throwable</pattern>
         </encoder>
     </appender>
 

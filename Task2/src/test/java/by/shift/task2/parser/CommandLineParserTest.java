@@ -6,16 +6,16 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class CommandLineParserTest {
-
-    private final CommandLineParser parser = new CommandLineParser();
 
     @Test
     void parseArgs_validArgs_shouldReturnMap() {
         String[] args = {"--input=file.txt", "--output=console"};
-        Map<String, String> result = parser.parseArgs(args);
+        Map<String, String> result = CommandLineParser.parseArgs(args);
 
         assertEquals("file.txt", result.get(ApplicationConstant.INPUT));
         assertEquals("console", result.get(ApplicationConstant.OUTPUT));
@@ -25,7 +25,7 @@ class CommandLineParserTest {
     void parseArgs_noArgs_shouldThrow() {
         String[] args = {};
         ApplicationException ex = assertThrows(ApplicationException.class,
-                () -> parser.parseArgs(args));
+                () -> CommandLineParser.parseArgs(args));
         assertTrue(ex.getMessage().contains("Нет аргументов"));
     }
 
@@ -33,7 +33,7 @@ class CommandLineParserTest {
     void parseArgs_invalidFormat_shouldThrow() {
         String[] args = {"--inputfile.txt"};
         ApplicationException ex = assertThrows(ApplicationException.class,
-                () -> parser.parseArgs(args));
+                () -> CommandLineParser.parseArgs(args));
         assertTrue(ex.getMessage().contains("Неверный формат аргумента"));
     }
 
@@ -41,7 +41,7 @@ class CommandLineParserTest {
     void parseArgs_unknownArgument_shouldThrow() {
         String[] args = {"--unknown=value", "--input=file.txt", "--output=console"};
         ApplicationException ex = assertThrows(ApplicationException.class,
-                () -> parser.parseArgs(args));
+                () -> CommandLineParser.parseArgs(args));
         assertTrue(ex.getMessage().contains("Неизвестный аргумент"));
     }
 
@@ -49,7 +49,7 @@ class CommandLineParserTest {
     void parseArgs_missingInput_shouldThrow() {
         String[] args = {"--output=console"};
         ApplicationException ex = assertThrows(ApplicationException.class,
-                () -> parser.parseArgs(args));
+                () -> CommandLineParser.parseArgs(args));
         assertTrue(ex.getMessage().contains("Необходимо оба аргумента"));
     }
 
@@ -57,7 +57,7 @@ class CommandLineParserTest {
     void parseArgs_missingOutput_shouldThrow() {
         String[] args = {"--input=file.txt"};
         ApplicationException ex = assertThrows(ApplicationException.class,
-                () -> parser.parseArgs(args));
+                () -> CommandLineParser.parseArgs(args));
         assertTrue(ex.getMessage().contains("Необходимо оба аргумента"));
     }
 }

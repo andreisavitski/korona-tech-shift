@@ -5,22 +5,22 @@ import org.junit.jupiter.api.Test;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static by.shift.task2.constant.ApplicationConstant.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static by.shift.task2.constant.ApplicationConstant.CONSOLE;
+import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DataWriterTest {
 
     @Test
-    void write_console_shouldPrint() {
-        DataWriter writer = new DataWriter();
-        assertDoesNotThrow(() -> writer.write("output", CONSOLE));
+    void write_consoleOutputProvided_shouldNotThrow() {
+        assertDoesNotThrow(() -> DataWriter.write("output", CONSOLE));
     }
 
     @Test
-    void write_file_shouldWriteToFile() throws Exception {
+    void write_fileTextProvided_shouldWriteContentToFile() throws Exception {
         Path resultFile = Path.of("result.txt");
         Files.deleteIfExists(resultFile);
-        new DataWriter().write("test", "file");
+        DataWriter.write("test", "file");
         assertEquals("test", Files.readString(resultFile));
         Files.deleteIfExists(resultFile);
     }

@@ -5,11 +5,15 @@ import by.shift.task2.parser.ShapeParserStrategy;
 import by.shift.task2.parser.impl.CircleParser;
 import by.shift.task2.parser.impl.RectangleParser;
 import by.shift.task2.parser.impl.TriangleParser;
+import lombok.experimental.UtilityClass;
 
 import java.util.Map;
 
-import static by.shift.task2.enums.ShapeType.*;
+import static by.shift.task2.enums.ShapeType.CIRCLE;
+import static by.shift.task2.enums.ShapeType.RECTANGLE;
+import static by.shift.task2.enums.ShapeType.TRIANGLE;
 
+@UtilityClass
 public class ShapeParserResolver {
 
     private final Map<ShapeType, ShapeParserStrategy> shapeParsers = Map.of(

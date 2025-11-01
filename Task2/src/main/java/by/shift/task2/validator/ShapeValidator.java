@@ -7,9 +7,12 @@ import lombok.experimental.UtilityClass;
 import java.util.List;
 
 import static by.shift.task2.enums.ShapeType.valueOf;
-import static by.shift.task2.exeption.ApplicationError.*;
-import static java.lang.Double.*;
-import static java.util.Locale.*;
+import static by.shift.task2.exeption.ApplicationError.INCORRECT_NUMBER_FORMAT;
+import static by.shift.task2.exeption.ApplicationError.TRIANGLE_CAN_NOT_EXIST;
+import static by.shift.task2.exeption.ApplicationError.UNSUPPORTED_SHAPE_TYPE;
+import static by.shift.task2.exeption.ApplicationError.VALUES_MUST_BE_POSITIVE;
+import static java.lang.Double.parseDouble;
+import static java.util.Locale.ROOT;
 
 @UtilityClass
 public class ShapeValidator {

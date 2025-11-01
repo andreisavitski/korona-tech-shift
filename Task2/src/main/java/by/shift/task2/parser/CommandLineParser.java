@@ -1,23 +1,29 @@
 package by.shift.task2.parser;
 
 import by.shift.task2.exeption.ApplicationException;
+import lombok.experimental.UtilityClass;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static by.shift.task2.constant.ApplicationConstant.*;
-import static by.shift.task2.exeption.ApplicationError.*;
-import static java.util.Locale.*;
+import static by.shift.task2.constant.ApplicationConstant.INPUT;
+import static by.shift.task2.constant.ApplicationConstant.OUTPUT;
+import static by.shift.task2.exeption.ApplicationError.ARGUMENTS_REQUIRED;
+import static by.shift.task2.exeption.ApplicationError.INVALID_ARGUMENT_FORMAT;
+import static by.shift.task2.exeption.ApplicationError.NO_ARGUMENTS;
+import static by.shift.task2.exeption.ApplicationError.UNKNOWN_ARGUMENT;
+import static java.util.Locale.ROOT;
 
+@UtilityClass
 public class CommandLineParser {
 
-    private static final String INPUT_FLAG = "--input";
+    private final String INPUT_FLAG = "--input";
 
-    private static final String OUTPUT_FLAG = "--output";
+    private final String OUTPUT_FLAG = "--output";
 
-    private static final String ASSIGNMENT = "=";
+    private final String ASSIGNMENT = "=";
 
-    private static final Integer NUMBER_OF_ARGUMENT_SPLITTINGS = 2;
+    private final Integer NUMBER_OF_ARGUMENT_SPLITTINGS = 2;
 
 
     public Map<String, String> parseArgs(final String[] args) {

@@ -1,13 +1,15 @@
 package by.shift.task2.model;
 
+import by.shift.task2.validator.ShapeValidator;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-import static by.shift.task2.constant.ApplicationConstant.*;
-import static by.shift.task2.validator.ShapeValidator.*;
-import static java.lang.Math.*;
-import static java.lang.String.*;
+import static by.shift.task2.constant.ApplicationConstant.RECTANGLE;
+import static java.lang.Math.hypot;
+import static java.lang.String.valueOf;
 
 @Getter
+@EqualsAndHashCode(callSuper = false)
 public class Rectangle extends Shape {
 
     private final Double firstSide;
@@ -17,7 +19,7 @@ public class Rectangle extends Shape {
     public Rectangle(Double firstSide, Double secondSide) {
         this.firstSide = firstSide;
         this.secondSide = secondSide;
-        checkForPositiveNumbers(new String[]{valueOf(firstSide), valueOf(secondSide)});
+        ShapeValidator.checkForPositiveNumbers(new String[]{valueOf(firstSide), valueOf(secondSide)});
     }
 
     @Override

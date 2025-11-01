@@ -1,58 +1,44 @@
 package by.shift.task2.model;
 
 import by.shift.task2.exeption.ApplicationException;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 
-import static by.shift.task2.constant.ApplicationConstant.*;
-import static org.junit.jupiter.api.Assertions.*;
+import static by.shift.task2.constant.ApplicationConstant.RECTANGLE;
+import static java.lang.Math.sqrt;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class RectangleTest {
 
-    @Test
-    void constructor_validSides_shouldCreateRectangle() {
-        Rectangle rectangle = new Rectangle(3.0, 4.0);
-        assertEquals(3.0, rectangle.getFirstSide());
-        assertEquals(4.0, rectangle.getSecondSide());
-    }
+    @ParameterizedTest
+    @CsvSource({
+            "1.0,1.0",
+            "999.0,999.0"
+    })
+    void rectangleParameterizedTests(Double firstSide, Double secondSide) {
+        Rectangle rectangle = new Rectangle(firstSide, secondSide);
 
-    @Test
-    void constructor_negativeSide_shouldThrow() {
-        assertThrows(ApplicationException.class, () -> new Rectangle(-1.0, 5.0));
-    }
+        assertEquals(Math.min(firstSide, secondSide), rectangle.getWidth());
+        assertEquals(Math.max(firstSide, secondSide), rectangle.getLength());
+        assertEquals(firstSide, rectangle.getFirstSide());
+        assertEquals(secondSide, rectangle.getSecondSide());
 
-    @Test
-    void getName_shouldReturnRectangle() {
-        Rectangle rectangle = new Rectangle(2.0, 5.0);
         assertEquals(RECTANGLE, rectangle.getName());
+
+        assertEquals(firstSide * secondSide, rectangle.calculateArea());
+
+        assertEquals(2 * (firstSide + secondSide), rectangle.calculatePerimeter());
+
+        assertEquals(sqrt(firstSide * firstSide + secondSide * secondSide), rectangle.calculateDiagonal(), 1e-9);
     }
 
-    @Test
-    void calculateArea_shouldReturnCorrectValue() {
-        Rectangle rectangle = new Rectangle(2.0, 6.0);
-        assertEquals(12.0, rectangle.calculateArea());
-    }
-
-    @Test
-    void calculatePerimeter_shouldReturnCorrectValue() {
-        Rectangle rectangle = new Rectangle(2.0, 6.0);
-        assertEquals(16.0, rectangle.calculatePerimeter());
-    }
-
-    @Test
-    void calculateDiagonal_shouldReturnCorrectValue() {
-        Rectangle rectangle = new Rectangle(3.0, 4.0);
-        assertEquals(5.0, rectangle.calculateDiagonal(), 1e-9);
-    }
-
-    @Test
-    void getLength_shouldReturnBiggerSide() {
-        Rectangle rectangle = new Rectangle(3.0, 4.0);
-        assertEquals(4.0, rectangle.getLength());
-    }
-
-    @Test
-    void getWidth_shouldReturnSmallerSide() {
-        Rectangle rectangle = new Rectangle(3.0, 4.0);
-        assertEquals(3.0, rectangle.getWidth());
+    @ParameterizedTest
+    @CsvSource({
+            "-1.0,999.0",
+            "1.0,-999.0"
+    })
+    void constructor_negativeSide_shouldThrow(Double firstSide, Double secondSide) {
+        assertThrows(ApplicationException.class, () -> new Rectangle(firstSide, secondSide));
     }
 }

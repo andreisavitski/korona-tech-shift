@@ -11,7 +11,7 @@ public enum ApplicationError implements AppError, Supplier<ApplicationException>
 
     FILE_NOT_FOUND("Файл не найден по пути: "),
 
-    FILE_IS_EMPTY("Файл пустой"),
+    INSUFFICIENT_DATA("Недостаточно данных"),
 
     INVALID_ARGUMENT_FORMAT("Неверный формат аргумента: "),
 

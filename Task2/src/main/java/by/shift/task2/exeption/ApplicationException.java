@@ -11,8 +11,8 @@ public class ApplicationException extends RuntimeException {
         this(appError, appError.getMessage());
     }
 
-    public ApplicationException(AppError appError, String message) {
-        super(message != null ? message : appError.getMessage());
+    public ApplicationException(AppError appError, String additionalInformation) {
+        super(additionalInformation != null ? additionalInformation : appError.getMessage());
         this.message = appError.getMessage();
     }
 }

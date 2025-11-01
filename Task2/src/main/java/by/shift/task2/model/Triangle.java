@@ -1,13 +1,17 @@
 package by.shift.task2.model;
 
+import by.shift.task2.validator.ShapeValidator;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 
-import static by.shift.task2.constant.ApplicationConstant.*;
-import static by.shift.task2.validator.ShapeValidator.*;
-import static java.lang.Math.*;
-import static java.lang.String.*;
+import static by.shift.task2.constant.ApplicationConstant.TRIANGLE;
+import static java.lang.Math.acos;
+import static java.lang.Math.sqrt;
+import static java.lang.Math.toDegrees;
+import static java.lang.String.valueOf;
 
 @Getter
+@EqualsAndHashCode(callSuper = false)
 public class Triangle extends Shape {
 
     private final Double firstSide;
@@ -20,8 +24,8 @@ public class Triangle extends Shape {
         this.firstSide = firstSide;
         this.secondSide = secondSide;
         this.thirdSide = thirdSide;
-        checkForPositiveNumbers(new String[]{valueOf(firstSide), valueOf(secondSide), valueOf(thirdSide)});
-        checkTriangleSides(new String[]{valueOf(firstSide), valueOf(secondSide), valueOf(thirdSide)});
+        ShapeValidator.checkForPositiveNumbers(new String[]{valueOf(firstSide), valueOf(secondSide), valueOf(thirdSide)});
+        ShapeValidator.checkTriangleSides(new String[]{valueOf(firstSide), valueOf(secondSide), valueOf(thirdSide)});
     }
 
     @Override

@@ -6,14 +6,16 @@ import lombok.experimental.UtilityClass;
 import java.nio.file.Path;
 import java.util.List;
 
-import static by.shift.task2.exeption.ApplicationError.*;
-import static java.nio.file.Files.*;
+import static by.shift.task2.exeption.ApplicationError.FILE_NOT_FOUND;
+import static by.shift.task2.exeption.ApplicationError.INSUFFICIENT_DATA;
+import static java.nio.file.Files.exists;
 
 @UtilityClass
 public class DataValidator {
 
     public void checkIsEmpty(final List<String> lines) {
-        if (lines.isEmpty()) throw new ApplicationException(FILE_IS_EMPTY);
+        if (lines.isEmpty() || lines.size() < 2)
+            throw new ApplicationException(INSUFFICIENT_DATA);
     }
 
     public void checkingForFileExistence(final Path filePath) {

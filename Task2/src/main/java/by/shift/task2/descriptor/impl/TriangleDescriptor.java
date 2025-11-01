@@ -3,7 +3,7 @@ package by.shift.task2.descriptor.impl;
 import by.shift.task2.descriptor.ShapeDescriptorStrategy;
 import by.shift.task2.model.Triangle;
 
-import static java.lang.String.*;
+import static java.lang.String.format;
 
 public class TriangleDescriptor implements ShapeDescriptorStrategy<Triangle> {
 
