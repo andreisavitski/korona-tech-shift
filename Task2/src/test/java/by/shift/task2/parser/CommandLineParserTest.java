@@ -1,7 +1,7 @@
 package by.shift.task2.parser;
 
 import by.shift.task2.constant.ApplicationConstant;
-import by.shift.task2.exeption.ApplicationException;
+import by.shift.task2.exception.ApplicationException;
 import org.junit.jupiter.api.Test;
 
 import java.util.Map;
@@ -26,7 +26,7 @@ class CommandLineParserTest {
         String[] args = {};
         ApplicationException ex = assertThrows(ApplicationException.class,
                 () -> CommandLineParser.parseArgs(args));
-        assertTrue(ex.getMessage().contains("Нет аргументов"));
+        assertTrue(ex.getErrorMessage().contains("Нет аргументов"));
     }
 
     @Test
@@ -34,7 +34,7 @@ class CommandLineParserTest {
         String[] args = {"--inputfile.txt"};
         ApplicationException ex = assertThrows(ApplicationException.class,
                 () -> CommandLineParser.parseArgs(args));
-        assertTrue(ex.getMessage().contains("Неверный формат аргумента"));
+        assertTrue(ex.getErrorMessage().contains("Неверный формат аргумента"));
     }
 
     @Test
@@ -42,7 +42,7 @@ class CommandLineParserTest {
         String[] args = {"--unknown=value", "--input=file.txt", "--output=console"};
         ApplicationException ex = assertThrows(ApplicationException.class,
                 () -> CommandLineParser.parseArgs(args));
-        assertTrue(ex.getMessage().contains("Неизвестный аргумент"));
+        assertTrue(ex.getErrorMessage().contains("Неизвестный аргумент"));
     }
 
     @Test
@@ -50,7 +50,7 @@ class CommandLineParserTest {
         String[] args = {"--output=console"};
         ApplicationException ex = assertThrows(ApplicationException.class,
                 () -> CommandLineParser.parseArgs(args));
-        assertTrue(ex.getMessage().contains("Необходимо оба аргумента"));
+        assertTrue(ex.getErrorMessage().contains("Необходимо оба аргумента"));
     }
 
     @Test
@@ -58,6 +58,6 @@ class CommandLineParserTest {
         String[] args = {"--input=file.txt"};
         ApplicationException ex = assertThrows(ApplicationException.class,
                 () -> CommandLineParser.parseArgs(args));
-        assertTrue(ex.getMessage().contains("Необходимо оба аргумента"));
+        assertTrue(ex.getErrorMessage().contains("Необходимо оба аргумента"));
     }
 }

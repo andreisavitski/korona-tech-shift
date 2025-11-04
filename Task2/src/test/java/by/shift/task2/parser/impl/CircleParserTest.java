@@ -1,6 +1,6 @@
 package by.shift.task2.parser.impl;
 
-import by.shift.task2.exeption.ApplicationException;
+import by.shift.task2.exception.ApplicationException;
 import by.shift.task2.model.Circle;
 import by.shift.task2.model.Shape;
 import org.junit.jupiter.api.Test;

@@ -12,7 +12,7 @@ import static java.lang.String.valueOf;
 @EqualsAndHashCode(callSuper = false)
 public class Circle extends Shape {
 
-    private final Double radius;
+    private final double radius;
 
     public Circle(Double radius) {
         this.radius = radius;

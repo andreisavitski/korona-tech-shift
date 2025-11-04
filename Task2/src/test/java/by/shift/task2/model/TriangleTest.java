@@ -1,6 +1,6 @@
 package by.shift.task2.model;
 
-import by.shift.task2.exeption.ApplicationException;
+import by.shift.task2.exception.ApplicationException;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 

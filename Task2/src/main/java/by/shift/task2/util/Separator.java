@@ -1,11 +1,11 @@
 package by.shift.task2.util;
 
-import by.shift.task2.exeption.ApplicationException;
+import by.shift.task2.exception.ApplicationException;
 import lombok.experimental.UtilityClass;
 
 import java.util.List;
 
-import static by.shift.task2.exeption.ApplicationError.INCORRECT_NUMBER_OF_PARAMETERS;
+import static by.shift.task2.exception.ApplicationError.INCORRECT_NUMBER_OF_PARAMETERS;
 
 @UtilityClass
 public class Separator {

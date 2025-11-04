@@ -1,16 +1,16 @@
 package by.shift.task2.validator;
 
 import by.shift.task2.enums.ShapeType;
-import by.shift.task2.exeption.ApplicationException;
+import by.shift.task2.exception.ApplicationException;
 import lombok.experimental.UtilityClass;
 
 import java.util.List;
 
 import static by.shift.task2.enums.ShapeType.valueOf;
-import static by.shift.task2.exeption.ApplicationError.INCORRECT_NUMBER_FORMAT;
-import static by.shift.task2.exeption.ApplicationError.TRIANGLE_CAN_NOT_EXIST;
-import static by.shift.task2.exeption.ApplicationError.UNSUPPORTED_SHAPE_TYPE;
-import static by.shift.task2.exeption.ApplicationError.VALUES_MUST_BE_POSITIVE;
+import static by.shift.task2.exception.ApplicationError.INCORRECT_NUMBER_FORMAT;
+import static by.shift.task2.exception.ApplicationError.TRIANGLE_CAN_NOT_EXIST;
+import static by.shift.task2.exception.ApplicationError.UNSUPPORTED_SHAPE_TYPE;
+import static by.shift.task2.exception.ApplicationError.VALUES_MUST_BE_POSITIVE;
 import static java.lang.Double.parseDouble;
 import static java.util.Locale.ROOT;
 

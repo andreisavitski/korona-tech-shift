@@ -1,13 +1,13 @@
 package by.shift.task2.validator;
 
-import by.shift.task2.exeption.ApplicationException;
+import by.shift.task2.exception.ApplicationException;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-import static by.shift.task2.exeption.ApplicationError.INSUFFICIENT_DATA;
+import static by.shift.task2.exception.ApplicationError.INSUFFICIENT_DATA;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -20,7 +20,7 @@ class DataValidatorTest {
         List<String> lines = List.of();
         ApplicationException exception = assertThrows(ApplicationException.class,
                 () -> DataValidator.checkIsEmpty(lines));
-        assertEquals(INSUFFICIENT_DATA.getMessage(), exception.getMessage());
+        assertEquals(INSUFFICIENT_DATA.getMessage(), exception.getErrorMessage());
     }
 
     @Test
@@ -28,7 +28,7 @@ class DataValidatorTest {
         List<String> lines = List.of("CIRCLE");
         ApplicationException exception = assertThrows(ApplicationException.class,
                 () -> DataValidator.checkIsEmpty(lines));
-        assertEquals(INSUFFICIENT_DATA.getMessage(), exception.getMessage());
+        assertEquals(INSUFFICIENT_DATA.getMessage(), exception.getErrorMessage());
     }
 
     @Test
@@ -43,6 +43,6 @@ class DataValidatorTest {
         Path fakePath = Path.of("notfound.txt");
         ApplicationException e = assertThrows(ApplicationException.class,
                 () -> DataValidator.checkingForFileExistence(fakePath));
-        assertTrue(e.getMessage().contains("Файл не найден"));
+        assertTrue(e.getErrorMessage().contains("Файл не найден"));
     }
 }

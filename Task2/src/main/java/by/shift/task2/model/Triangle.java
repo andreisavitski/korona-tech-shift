@@ -14,11 +14,11 @@ import static java.lang.String.valueOf;
 @EqualsAndHashCode(callSuper = false)
 public class Triangle extends Shape {
 
-    private final Double firstSide;
+    private final double firstSide;
 
-    private final Double secondSide;
+    private final double secondSide;
 
-    private final Double thirdSide;
+    private final double thirdSide;
 
     public Triangle(Double firstSide, Double secondSide, Double thirdSide) {
         this.firstSide = firstSide;
@@ -35,7 +35,7 @@ public class Triangle extends Shape {
 
     @Override
     public Double calculateArea() {
-        final Double semiperimeter = (firstSide + secondSide + thirdSide) / 2;
+        final double semiperimeter = (firstSide + secondSide + thirdSide) / 2;
         return sqrt(
                 semiperimeter * (semiperimeter - firstSide) * (semiperimeter - secondSide) * (semiperimeter - thirdSide)
         );

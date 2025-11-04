@@ -12,9 +12,9 @@ import static java.lang.String.valueOf;
 @EqualsAndHashCode(callSuper = false)
 public class Rectangle extends Shape {
 
-    private final Double firstSide;
+    private final double firstSide;
 
-    private final Double secondSide;
+    private final double secondSide;
 
     public Rectangle(Double firstSide, Double secondSide) {
         this.firstSide = firstSide;

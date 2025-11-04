@@ -1,6 +1,6 @@
 package by.shift.task2.validator;
 
-import by.shift.task2.exeption.ApplicationException;
+import by.shift.task2.exception.ApplicationException;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package by.shift.task2.exeption;
+package by.shift.task2.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

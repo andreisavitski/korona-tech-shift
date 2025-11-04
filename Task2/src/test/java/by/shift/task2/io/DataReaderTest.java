@@ -1,6 +1,6 @@
 package by.shift.task2.io;
 
-import by.shift.task2.exeption.ApplicationException;
+import by.shift.task2.exception.ApplicationException;
 import org.junit.jupiter.api.Test;
 
 import java.nio.file.Files;
@@ -31,6 +31,6 @@ class DataReaderTest {
                 ApplicationException.class,
                 () -> DataReader.readLines(fakePath)
         );
-        assertTrue(e.getMessage().contains("Файл не найден"));
+        assertTrue(e.getErrorMessage().contains("Файл не найден"));
     }
 }

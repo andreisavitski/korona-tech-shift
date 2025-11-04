@@ -1,6 +1,6 @@
 package by.shift.task2.parser;
 
-import by.shift.task2.exeption.ApplicationException;
+import by.shift.task2.exception.ApplicationException;
 import lombok.experimental.UtilityClass;
 
 import java.util.HashMap;
@@ -8,10 +8,10 @@ import java.util.Map;
 
 import static by.shift.task2.constant.ApplicationConstant.INPUT;
 import static by.shift.task2.constant.ApplicationConstant.OUTPUT;
-import static by.shift.task2.exeption.ApplicationError.ARGUMENTS_REQUIRED;
-import static by.shift.task2.exeption.ApplicationError.INVALID_ARGUMENT_FORMAT;
-import static by.shift.task2.exeption.ApplicationError.NO_ARGUMENTS;
-import static by.shift.task2.exeption.ApplicationError.UNKNOWN_ARGUMENT;
+import static by.shift.task2.exception.ApplicationError.ARGUMENTS_REQUIRED;
+import static by.shift.task2.exception.ApplicationError.INVALID_ARGUMENT_FORMAT;
+import static by.shift.task2.exception.ApplicationError.NO_ARGUMENTS;
+import static by.shift.task2.exception.ApplicationError.UNKNOWN_ARGUMENT;
 import static java.util.Locale.ROOT;
 
 @UtilityClass
