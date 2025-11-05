@@ -17,9 +17,9 @@ public class DataWriter {
 
     private static final String ERROR_WRITING = "Ошибка записи в файл :";
 
-    private final String RESULT_IS_WRITTEN_TO_FILE = "Результат записан в файл: {}";
+    private static final String RESULT_IS_WRITTEN_TO_FILE = "Результат записан в файл: {}";
 
-    private final String RESULT_IS_WRITTEN_TO_CONSOLE = "Результат записан в консоль";
+    private static final String RESULT_IS_WRITTEN_TO_CONSOLE = "Результат записан в консоль";
 
     private final Logger logger = getLogger(DataWriter.class);
 

@@ -10,9 +10,9 @@ public class Separator {
 
     private static final String INCORRECT_NUMBER_OF_PARAMETERS = "Неверное количество параметров для данной фигуры";
 
-    private final Integer INDEX_SECOND_LINE = 1;
+    private static final Integer INDEX_SECOND_LINE = 1;
 
-    private final String ANY_WHITESPACE_CHARACTER = "\\s+";
+    private static final String ANY_WHITESPACE_CHARACTER = "\\s+";
 
     public String[] splitParameters(final List<String> lines, final Integer numberOfParameters) {
         final String parameters = lines.get(INDEX_SECOND_LINE).trim();

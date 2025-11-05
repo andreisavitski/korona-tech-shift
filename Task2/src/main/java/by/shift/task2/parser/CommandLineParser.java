@@ -22,13 +22,13 @@ public class CommandLineParser {
 
     private static final String ARGUMENTS_REQUIRED = "Необходимо оба аргумента --input и --output";
 
-    private final String INPUT_FLAG = "--input";
+    private static final String INPUT_FLAG = "--input";
 
-    private final String OUTPUT_FLAG = "--output";
+    private static final String OUTPUT_FLAG = "--output";
 
-    private final String ASSIGNMENT = "=";
+    private static final String ASSIGNMENT = "=";
 
-    private final Integer NUMBER_OF_ARGUMENT_SPLITTINGS = 2;
+    private static final Integer NUMBER_OF_ARGUMENT_SPLITTINGS = 2;
 
     public Map<String, String> parseArgs(final String[] args) {
         if (args == null || args.length == 0) {
