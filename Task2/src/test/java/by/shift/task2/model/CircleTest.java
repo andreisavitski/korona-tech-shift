@@ -30,7 +30,7 @@ class CircleTest {
             "-9379992.0",
             "-0.0"
     })
-    void constructor_negativeRadius_shouldThrow(Double radius) {
+    void constructor_negativeRadius_shouldThrowApplicationException(Double radius) {
         assertThrows(ApplicationException.class, () -> new Circle(radius));
     }
 }

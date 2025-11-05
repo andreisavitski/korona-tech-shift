@@ -13,6 +13,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class DataReaderTest {
 
+    private static final String ERROR_READING = "Ошибка чтения из файла :";
+
+    private static final String FILE_NOT_FOUND = "Файл не найден по пути: ";
+
     @Test
     void readLines_validFile_shouldReturnLines() throws Exception {
         Path tempFile = Files.createTempFile("test", ".txt");
@@ -25,12 +29,25 @@ class DataReaderTest {
     }
 
     @Test
-    void readLines_fileNotExist_shouldThrow() {
-        Path fakePath = Path.of("nonexist.txt");
-        ApplicationException e = assertThrows(
+    void readLines_fileNotExist_shouldThrowApplicationException() {
+        Path path = Path.of("test.txt");
+        ApplicationException exception = assertThrows(
                 ApplicationException.class,
-                () -> DataReader.readLines(fakePath)
+                () -> DataReader.readLines(path)
         );
-        assertTrue(e.getErrorMessage().contains("Файл не найден"));
+        assertTrue(exception.getMessage().contains(FILE_NOT_FOUND));
+        assertTrue(exception.getMessage().contains("test.txt"));
+    }
+
+    @Test
+    void readLines_ioException_shouldThrowApplicationException() throws Exception {
+        Path dir = Files.createTempDirectory("test");
+        ApplicationException exception = assertThrows(
+                ApplicationException.class,
+                () -> DataReader.readLines(dir)
+        );
+        assertTrue(exception.getMessage().contains(ERROR_READING));
+        assertTrue(exception.getMessage().contains(dir.toString()));
+        Files.deleteIfExists(dir);
     }
 }

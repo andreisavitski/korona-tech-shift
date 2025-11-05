@@ -23,17 +23,17 @@ class TriangleParserTest {
     }
 
     @Test
-    void parse_invalidSides_shouldThrow() {
+    void parse_invalidSides_shouldThrowApplicationException() {
         assertThrows(ApplicationException.class, () -> parser.parse(List.of("ТРЕУГОЛЬНИК", "1 2 10")));
     }
 
     @Test
-    void parse_negativeSide_shouldThrow() {
+    void parse_negativeSide_shouldThrowApplicationException() {
         assertThrows(ApplicationException.class, () -> parser.parse(List.of("ТРЕУГОЛЬНИК", "-3 4 5")));
     }
 
     @Test
-    void parse_notNumber_shouldThrow() {
+    void parse_notNumber_shouldThrowApplicationException() {
         assertThrows(ApplicationException.class, () -> parser.parse(List.of("ТРЕУГОЛЬНИК", "a 4 5")));
     }
 }

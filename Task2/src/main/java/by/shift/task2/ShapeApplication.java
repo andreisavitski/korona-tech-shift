@@ -13,7 +13,6 @@ import by.shift.task2.validator.DataValidator;
 import by.shift.task2.validator.ShapeValidator;
 import org.slf4j.Logger;
 
-import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
@@ -38,31 +37,27 @@ public class ShapeApplication {
 
     public static void main(String[] args) {
         logger.info(START_PROGRAM, (Object) args);
-        try {
-            final Map<String, String> commandLineArguments = CommandLineParser.parseArgs(args);
+        final Map<String, String> commandLineArguments = CommandLineParser.parseArgs(args);
 
-            final String inputFile = commandLineArguments.get(INPUT);
-            final String outputMethod = commandLineArguments.get(OUTPUT);
+        final String inputFile = commandLineArguments.get(INPUT);
+        final String outputMethod = commandLineArguments.get(OUTPUT);
 
-            final List<String> lines = DataReader.readLines(Path.of(inputFile));
-            DataValidator.checkIsEmpty(lines);
-            logger.info(FILE_READ_SUCCESSFULLY, inputFile, lines.size());
+        final List<String> lines = DataReader.readLines(Path.of(inputFile));
+        DataValidator.checkIsEmpty(lines);
+        logger.info(FILE_READ_SUCCESSFULLY, inputFile, lines.size());
 
-            final ShapeType shapeType = ShapeValidator.checkShapeType(lines);
-            logger.info(TYPE_OF_SHAPE_IS_DETERMINED, shapeType);
+        final ShapeType shapeType = ShapeValidator.checkShapeType(lines);
+        logger.info(TYPE_OF_SHAPE_IS_DETERMINED, shapeType);
 
-            final ShapeParserStrategy shapeParserStrategy = ShapeParserResolver.getShapeParser(shapeType);
-            final Shape shape = shapeParserStrategy.parse(lines);
-            logger.info(SHAPE_SUCCESSFULLY_CREATED, shape.getName());
+        final ShapeParserStrategy shapeParserStrategy = ShapeParserResolver.getShapeParser(shapeType);
+        final Shape shape = shapeParserStrategy.parse(lines);
+        logger.info(SHAPE_SUCCESSFULLY_CREATED, shape.getName());
 
-            final ShapeDescriptorStrategy<Shape> shapeDescriptorStrategy =
-                    ShapeDescriptorResolver.getShapeDescriptorStrategy(shapeType);
-            final String description = shapeDescriptorStrategy.describe(shape);
+        final ShapeDescriptorStrategy<Shape> shapeDescriptorStrategy =
+                ShapeDescriptorResolver.getShapeDescriptorStrategy(shapeType);
+        final String description = shapeDescriptorStrategy.describe(shape);
 
-            DataWriter.write(description, outputMethod);
-        } catch (IOException e) {
-            logger.error(e.getMessage());
-        }
+        DataWriter.write(description, outputMethod);
         logger.info(FINISH_PROGRAM);
     }
 }

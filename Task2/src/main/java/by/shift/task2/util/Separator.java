@@ -5,10 +5,10 @@ import lombok.experimental.UtilityClass;
 
 import java.util.List;
 
-import static by.shift.task2.exception.ApplicationError.INCORRECT_NUMBER_OF_PARAMETERS;
-
 @UtilityClass
 public class Separator {
+
+    private static final String INCORRECT_NUMBER_OF_PARAMETERS = "Неверное количество параметров для данной фигуры";
 
     private final Integer INDEX_SECOND_LINE = 1;
 

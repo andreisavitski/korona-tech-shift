@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class DataWriterTest {
 
     @Test
-    void write_consoleOutputProvided_shouldNotThrow() {
+    void write_consoleOutputProvided_shouldNotThrowApplicationException() {
         assertDoesNotThrow(() -> DataWriter.write("output", CONSOLE));
     }
 

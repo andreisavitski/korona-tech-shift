@@ -56,7 +56,7 @@ class TriangleTest {
             "-3.0,4.0,5.0",
             "3310.0,-4.0,5.0"
     })
-    void constructor_negativeSide_shouldThrow(Double firstSide, Double secondSide, Double thirdSide) {
+    void constructor_negativeSide_shouldThrowApplicationException(Double firstSide, Double secondSide, Double thirdSide) {
         assertThrows(ApplicationException.class, () -> new Triangle(firstSide, secondSide, thirdSide));
     }
 
@@ -65,7 +65,7 @@ class TriangleTest {
             "1.0,2.0,5.0",
             "2.0,3.0,6.0"
     })
-    void constructor_invalidTriangle_shouldThrow(Double firstSide, Double secondSide, Double thirdSide) {
+    void constructor_invalidTriangle_shouldThrowApplicationException(Double firstSide, Double secondSide, Double thirdSide) {
         assertThrows(ApplicationException.class, () -> new Triangle(firstSide, secondSide, thirdSide));
     }
 }

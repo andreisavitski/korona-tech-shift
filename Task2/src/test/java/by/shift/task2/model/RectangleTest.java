@@ -38,7 +38,7 @@ class RectangleTest {
             "-1.0,999.0",
             "1.0,-999.0"
     })
-    void constructor_negativeSide_shouldThrow(Double firstSide, Double secondSide) {
+    void constructor_negativeSide_shouldThrowApplicationException(Double firstSide, Double secondSide) {
         assertThrows(ApplicationException.class, () -> new Rectangle(firstSide, secondSide));
     }
 }

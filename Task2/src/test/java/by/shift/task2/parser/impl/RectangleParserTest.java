@@ -24,12 +24,12 @@ class RectangleParserTest {
     }
 
     @Test
-    void parse_negativeSide_shouldThrow() {
+    void parse_negativeSide_shouldThrowApplicationException() {
         assertThrows(ApplicationException.class, () -> parser.parse(List.of("ПРЯМОУГОЛЬНИК", "-5 10")));
     }
 
     @Test
-    void parse_notNumber_shouldThrow() {
+    void parse_notNumber_shouldThrowApplicationException() {
         assertThrows(ApplicationException.class, () -> parser.parse(List.of("RECTANGLE", "a 10")));
     }
 }

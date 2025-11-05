@@ -23,12 +23,12 @@ class CircleParserTest {
     }
 
     @Test
-    void parse_negativeRadius_throwsException() {
+    void parse_negativeRadius_shouldThrowApplicationException() {
         assertThrows(ApplicationException.class, () -> parser.parse(List.of("КРУГ", "-1")));
     }
 
     @Test
-    void parse_notNumber_throwsException() {
+    void parse_notNumber_shouldThrowApplicationException() {
         assertThrows(ApplicationException.class, () -> parser.parse(List.of("КРУГ", "abc")));
     }
 }

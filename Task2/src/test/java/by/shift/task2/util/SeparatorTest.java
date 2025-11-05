@@ -17,7 +17,7 @@ class SeparatorTest {
     }
 
     @Test
-    void splitParameters_incorrectNumber_shouldThrow() {
+    void splitParameters_incorrectNumber_shouldThrowApplicationException() {
         assertThrows(ApplicationException.class,
                 () -> Separator.splitParameters(List.of("КРУГ", "5 10"), 1));
     }
