@@ -12,36 +12,26 @@ public class FunctionCalculatorRunner {
 
     private static final Logger logger = getLogger(FunctionCalculatorRunner.class);
 
-    private static final String APPLICATION_START = "Приложение запущено";
-
-    private static final String CALCULATION_COMPLETED = "Вычисление завершено. Итоговая сумма: {}";
-
-    private static final String LEAD_TIME = "Время выполнения: {} секунд";
-
-    private static final String ERROR_IN_RUNTIME = "Ошибка во время выполнения приложения";
-
-    private static final String APPLICATION_COMPLETED = "Приложение завершено";
-
     private static final double NANOSECONDS_IN_SECOND = 1_000_000_000.0;
 
     public static void main(String[] args) {
-        logger.info(APPLICATION_START);
+        logger.info("Приложение запущено");
         try {
-            final ComputationService computationService = new ComputationService();
-            final int n = DataReader.readNumber();
+            ComputationService computationService = new ComputationService();
+            int n = DataReader.readNumber();
 
-            final long startTime = System.nanoTime();
-            final BigDecimal result = computationService.calculateSum(n);
-            final long endTime = System.nanoTime();
+            long startTime = System.nanoTime();
+            BigDecimal result = computationService.calculateSum(n);
+            long endTime = System.nanoTime();
 
-            final BigDecimal seconds = BigDecimal.valueOf((endTime - startTime) / NANOSECONDS_IN_SECOND);
+            BigDecimal seconds = BigDecimal.valueOf((endTime - startTime) / NANOSECONDS_IN_SECOND);
 
-            logger.info(CALCULATION_COMPLETED, result);
-            logger.info(LEAD_TIME, seconds);
+            logger.info("Вычисление завершено. Итоговая сумма: {}", result);
+            logger.info("Время выполнения: {} секунд", seconds);
         } catch (Exception e) {
-            logger.error(ERROR_IN_RUNTIME, e);
+            logger.error("Ошибка во время выполнения приложения", e);
         } finally {
-            logger.info(APPLICATION_COMPLETED);
+            logger.info("Приложение завершено");
         }
     }
 }

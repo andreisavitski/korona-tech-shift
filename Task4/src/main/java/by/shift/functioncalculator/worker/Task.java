@@ -8,9 +8,7 @@ public record Task(int start, int end) {
 
     private static final Logger logger = getLogger(Task.class);
 
-    private static final String TASK_CREATED = "Создан Task [{}..{}]";
-
     public Task {
-        logger.debug(TASK_CREATED, start, end);
+        logger.debug("Создан Task [{}..{}]", start, end);
     }
 }

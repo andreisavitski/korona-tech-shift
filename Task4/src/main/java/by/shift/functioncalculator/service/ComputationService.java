@@ -13,12 +13,6 @@ public class ComputationService {
 
     private static final Logger logger = getLogger(ComputationService.class);
 
-    private static final String THREAD_POOL_CREATED = "Создан пул потоков. Доступно процессоров: {}";
-
-    private static final String ALL_TASKS_COMPLETED = "Все задачи завершены";
-
-    private static final String THREAD_POOL_STOPPED = "Пул потоков остановлен";
-
     private final ExecutorService executorService;
 
     private final int processors;
@@ -26,18 +20,18 @@ public class ComputationService {
     public ComputationService() {
         this.processors = Runtime.getRuntime().availableProcessors();
         this.executorService = Executors.newFixedThreadPool(processors);
-        logger.info(THREAD_POOL_CREATED, processors);
+        logger.info("Создан пул потоков. Доступно процессоров: {}", processors);
     }
 
-    public BigDecimal calculateSum(final int n) {
+    public BigDecimal calculateSum(int n) {
         try {
-            final ComputationManager manager = new ComputationManager(executorService);
-            final BigDecimal total = manager.computeParallel(n, processors);
-            logger.info(ALL_TASKS_COMPLETED);
+            ComputationManager manager = new ComputationManager(executorService);
+            BigDecimal total = manager.computeParallel(n, processors);
+            logger.info("Все задачи завершены");
             return total;
         } finally {
             executorService.shutdown();
-            logger.info(THREAD_POOL_STOPPED);
+            logger.info("Пул потоков остановлен");
         }
     }
 }
