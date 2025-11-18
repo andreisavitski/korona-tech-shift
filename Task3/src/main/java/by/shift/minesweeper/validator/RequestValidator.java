@@ -2,7 +2,7 @@ package by.shift.minesweeper.validator;
 
 import by.shift.minesweeper.exception.ApplicationException;
 
-public class RequestValidator {
+public final class RequestValidator {
 
     private static final String INVALID_ID = "Неверный id: ";
 
@@ -11,13 +11,13 @@ public class RequestValidator {
     private RequestValidator() {
     }
 
-    public static void validateId(final String id) {
+    public static void validateId(String id) {
         if (id == null || id.isBlank()) {
             throw new ApplicationException(INVALID_ID + id);
         }
     }
 
-    public static void validateRowAndCol(final int row, final int col) {
+    public static void validateRowAndCol(int row, int col) {
         if (row < 0 || col < 0) {
             throw new ApplicationException(INVALID_PARAMETERS);
         }

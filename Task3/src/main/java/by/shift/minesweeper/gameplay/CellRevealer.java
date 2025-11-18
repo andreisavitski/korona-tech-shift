@@ -10,45 +10,35 @@ import java.util.Queue;
 @Component
 public class CellRevealer {
 
-    private final BoardInitializer boardInitializer;
-
-    public CellRevealer(BoardInitializer boardInitializer) {
-        this.boardInitializer = boardInitializer;
-    }
-
-    public void revealAreaCell(final Game game,
-                               final int row,
-                               final int col) {
-        final Queue<int[]> positionsQueue = new ArrayDeque<>();
+    public void revealAreaCell(Game game, int row, int col) {
+        Queue<int[]> positionsQueue = new ArrayDeque<>();
         positionsQueue.add(new int[]{row, col});
         while (!positionsQueue.isEmpty()) {
-            final int[] position = positionsQueue.poll();
+            int[] position = positionsQueue.poll();
             revealCellAndQueueNeighbours(game, position[0], position[1], positionsQueue);
         }
     }
 
-    private void revealCellAndQueueNeighbours(final Game game,
-                                              final int row,
-                                              final int col,
-                                              final Queue<int[]> positionsQueue) {
-        final Cell cell = game.getCell(row, col);
-        if (cell.isRevealed() || cell.isMine()) return;
+    private void revealCellAndQueueNeighbours(Game game, int row, int col, Queue<int[]> positionsQueue) {
+        Cell cell = game.getCell(row, col);
+        if (cell.isRevealed() || cell.isMine()) {
+            return;
+        }
         cell.setRevealed(true);
-        cell.setAdjacentMines(boardInitializer.countMinesAroundCell(game, row, col));
+        cell.setAdjacentMines(BoardUtil.countMinesAroundCell(game, row, col));
         if (cell.getAdjacentMines() == 0) {
             checkNeighbours(game, row, col, positionsQueue);
         }
     }
 
-    private void checkNeighbours(final Game game,
-                                 final int row,
-                                 final int col,
-                                 final Queue<int[]> positionsQueue) {
+    private void checkNeighbours(Game game, int row, int col, Queue<int[]> positionsQueue) {
         for (int[] offset : Neighbour.getNeighbours()) {
-            final int neighbourRow = row + offset[0];
-            final int neighbourCol = col + offset[1];
-            if (!boardInitializer.isInsideBoard(game, neighbourRow, neighbourCol)) continue;
-            final Cell neighbour = game.getCell(neighbourRow, neighbourCol);
+            int neighbourRow = row + offset[0];
+            int neighbourCol = col + offset[1];
+            if (!BoardUtil.isInsideBoard(game, neighbourRow, neighbourCol)) {
+                continue;
+            }
+            Cell neighbour = game.getCell(neighbourRow, neighbourCol);
             if (!neighbour.isRevealed() && !neighbour.isMine()) {
                 positionsQueue.add(new int[]{neighbourRow, neighbourCol});
             }

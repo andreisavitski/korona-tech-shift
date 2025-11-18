@@ -1,6 +1,6 @@
 package by.shift.minesweeper.gameplay;
 
-class Neighbour {
+final class Neighbour {
 
     private Neighbour() {
     }
@@ -12,7 +12,7 @@ class Neighbour {
     };
 
     public static int[][] getNeighbours() {
-        final int[][] copy = new int[NEIGHBOURS.length][];
+        int[][] copy = new int[NEIGHBOURS.length][];
         for (int i = 0; i < NEIGHBOURS.length; i++) {
             copy[i] = NEIGHBOURS[i].clone();
         }

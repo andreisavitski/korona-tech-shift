@@ -13,7 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -35,7 +35,9 @@ class GameResultServiceImplTest {
         GameResultDto dto = new GameResultDto();
         GameResult gameResult = new GameResult();
         when(gameResultMapper.toGameResult(dto)).thenReturn(gameResult);
+
         gameResultService.saveResult(dto);
+
         verify(gameResultRepository).save(gameResult);
     }
 
@@ -46,8 +48,12 @@ class GameResultServiceImplTest {
         when(gameResultRepository.findAll()).thenReturn(List.of(gameResult));
         GameResultDto expected = new GameResultDto();
         when(gameResultMapper.toDtoList(anyList())).thenReturn(List.of(expected));
+
         List<GameResultDto> dtoList = gameResultService.getResults();
-        assertEquals(1, dtoList.size());
-        assertEquals(expected, dtoList.get(0));
+
+        assertThat(dtoList)
+                .isNotNull()
+                .hasSize(1)
+                .containsExactly(expected);
     }
 }

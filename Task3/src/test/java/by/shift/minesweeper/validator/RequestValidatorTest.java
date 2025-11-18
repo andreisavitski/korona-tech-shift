@@ -2,11 +2,9 @@ package by.shift.minesweeper.validator;
 
 import by.shift.minesweeper.exception.ApplicationException;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThatCode;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 class RequestValidatorTest {
 
@@ -16,30 +14,35 @@ class RequestValidatorTest {
 
     @Test
     void validateIdWhenNullShouldThrowApplicationException() {
-        assertThrowsWithMessage(() -> RequestValidator.validateId(null), INVALID_ID);
+        assertThatThrownBy(() -> RequestValidator.validateId(null))
+                .isInstanceOf(ApplicationException.class)
+                .hasMessageContaining(INVALID_ID);
     }
 
     @Test
     void validateIdWhenBlankShouldThrowApplicationException() {
-        assertThrowsWithMessage(() -> RequestValidator.validateId(" "), INVALID_ID);
+        assertThatThrownBy(() -> RequestValidator.validateId(" "))
+                .isInstanceOf(ApplicationException.class)
+                .hasMessageContaining(INVALID_ID);
     }
 
     @Test
     void validateRowAndColWhenNegativeShouldThrowApplicationException() {
-        assertThrowsWithMessage(() -> RequestValidator.validateRowAndCol(-1, 0), INVALID_PARAMETERS);
-        assertThrowsWithMessage(() -> RequestValidator.validateRowAndCol(0, -1), INVALID_PARAMETERS);
+        assertThatThrownBy(() -> RequestValidator.validateRowAndCol(-1, 0))
+                .isInstanceOf(ApplicationException.class)
+                .hasMessageContaining(INVALID_PARAMETERS);
+
+        assertThatThrownBy(() -> RequestValidator.validateRowAndCol(0, -1))
+                .isInstanceOf(ApplicationException.class)
+                .hasMessageContaining(INVALID_PARAMETERS);
     }
 
     @Test
     void validateRowAndColWhenPositiveShouldNotThrow() {
         int[][] validPairs = {{0, 0}, {5, 5}, {10, 10}};
         for (int[] pair : validPairs) {
-            assertDoesNotThrow(() -> RequestValidator.validateRowAndCol(pair[0], pair[1]));
+            assertThatCode(() -> RequestValidator.validateRowAndCol(pair[0], pair[1]))
+                    .doesNotThrowAnyException();
         }
-    }
-
-    private void assertThrowsWithMessage(Executable executable, String message) {
-        ApplicationException exception = assertThrows(ApplicationException.class, executable);
-        assertTrue(exception.getMessage().contains(message));
     }
 }

@@ -11,11 +11,9 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.times;
@@ -44,43 +42,51 @@ class GameFileRepositoryTest {
     void saveGivenValidGameShouldSerializeObject() {
         mockDeserializeToReturnGames();
         mockSerializeDoNothing();
+
         fileRepository.save(game);
-        verify(fileRepository, times(1)).serializeObject(any(), anyString());
+
+        verify(fileRepository, times(1)).serializeObject(any(), any());
     }
 
     @Test
     void findByIdGivenExistingGameShouldReturnGame() {
         mockDeserializeToReturnGames();
+
         Game result = fileRepository.findById(GAME_ID);
-        assertNotNull(result);
-        assertEquals(GAME_ID, result.getId());
+
+        assertThat(result).isNotNull();
+        assertThat(result.getId()).isEqualTo(GAME_ID);
     }
 
     @Test
     void findByIdGivenNonExistingGameShouldThrowApplicationException() {
         mockDeserializeToReturnGames();
-        assertThrows(ApplicationException.class, () -> fileRepository.findById("unknown"));
+
+        assertThatThrownBy(() -> fileRepository.findById("unknown")).isInstanceOf(ApplicationException.class);
     }
 
     @Test
     void updateGivenExistingGameShouldSerializeUpdateList() {
         mockDeserializeToReturnGames();
         mockSerializeDoNothing();
+
         fileRepository.update(game);
-        verify(fileRepository, times(1)).serializeObject(any(), anyString());
+
+        verify(fileRepository, times(1)).serializeObject(any(), any());
     }
 
     @Test
     void updateGivenNonExistingGameShouldThrowException() {
-        doReturn(new ArrayList<>()).when(fileRepository).deserializeObject(anyString());
-        assertThrows(ApplicationException.class, () -> fileRepository.update(game));
+        doReturn(new ArrayList<>()).when(fileRepository).deserializeObject(any());
+
+        assertThatThrownBy(() -> fileRepository.update(game)).isInstanceOf(ApplicationException.class);
     }
 
     private void mockDeserializeToReturnGames() {
-        doReturn(games).when(fileRepository).deserializeObject(anyString());
+        doReturn(games).when(fileRepository).deserializeObject(any());
     }
 
     private void mockSerializeDoNothing() {
-        doNothing().when(fileRepository).serializeObject(any(), anyString());
+        doNothing().when(fileRepository).serializeObject(any(), any());
     }
 }

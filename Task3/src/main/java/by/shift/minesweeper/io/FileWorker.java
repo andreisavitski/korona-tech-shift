@@ -12,7 +12,7 @@ public abstract class FileWorker {
 
     private static final String FAILED_TO_SERIALIZE = "Не удалось сериализовать объект в файл: ";
 
-    public void serializeObject(final Object object, final String path) {
+    public void serializeObject(Object object, String path) {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path))) {
             oos.writeObject(object);
         } catch (IOException e) {
@@ -20,9 +20,9 @@ public abstract class FileWorker {
         }
     }
 
-    public Object deserializeObject(final String path) {
-        final Object o;
-        try (final ObjectInputStream ois = new ObjectInputStream((new FileInputStream(path)))) {
+    public Object deserializeObject(String path) {
+        Object o;
+        try (ObjectInputStream ois = new ObjectInputStream((new FileInputStream(path)))) {
             o = ois.readObject();
         } catch (IOException | ClassNotFoundException e) {
             return new Object();

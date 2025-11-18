@@ -12,8 +12,7 @@ public class GameResultDto {
     @NotBlank(message = "Требуется имя игрока")
     private String playerName;
 
-    @NotNull(message = "Требуется исход игры")
-    private Boolean won;
+    private boolean won;
 
     @PositiveOrZero(message = "Ходы должны быть нулевыми или положительными")
     private int moves;

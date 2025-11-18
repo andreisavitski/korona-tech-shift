@@ -5,14 +5,9 @@ import by.shift.minesweeper.model.Game;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.Mockito.when;
+import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(MockitoExtension.class)
 class CellRevealerTest {
@@ -21,11 +16,7 @@ class CellRevealerTest {
 
     private static final int COLS = 10;
 
-    @Mock
-    private BoardInitializer boardInitializer;
-
-    @InjectMocks
-    private CellRevealer cellRevealer;
+    private final CellRevealer cellRevealer = new CellRevealer();
 
     private Game game;
 
@@ -37,17 +28,11 @@ class CellRevealerTest {
 
     @Test
     void revealAreaCellWhenNoMinesRevealAllCells() {
-        when(boardInitializer.countMinesAroundCell(any(Game.class), anyInt(), anyInt())).thenReturn(0);
-        when(boardInitializer.isInsideBoard(any(Game.class), anyInt(), anyInt())).thenAnswer(invocation -> {
-            int row = invocation.getArgument(1);
-            int col = invocation.getArgument(2);
-            return row >= 0 && row < ROWS && col >= 0 && col < COLS;
-        });
         cellRevealer.revealAreaCell(game, 0, 0);
-        for (int row = 0; row < ROWS; row++) {
-            for (int col = 0; col < COLS; col++) {
-                assertTrue(game.getCell(row, col).isRevealed());
-            }
+
+        Cell[][] board = game.getBoard();
+        for (Cell[] row : board) {
+            assertThat(row).allMatch(Cell::isRevealed);
         }
     }
 

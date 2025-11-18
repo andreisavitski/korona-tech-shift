@@ -5,8 +5,7 @@ import by.shift.minesweeper.model.Game;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.assertj.core.api.Assertions.assertThat;
 
 class GameEndHandlerTest {
 
@@ -14,31 +13,33 @@ class GameEndHandlerTest {
 
     private static final int COLS = 10;
 
-    private GameEndHandler gameEndHandler;
+    private final GameEndHandler gameEndHandler = new GameEndHandler();
 
     private Game game;
 
     @BeforeEach
     void setUp() {
-        gameEndHandler = new GameEndHandler();
         game = createDefaultGame();
     }
 
     @Test
     void handleMineCellWithMineGameOverAndCellRevealed() {
-        Cell cell = new Cell();
-        cell.setMine(true);
-        game.setCell(0, 0, cell);
-        gameEndHandler.handleMine(game, cell);
-        assertTrue(game.isGameOver());
-        assertTrue(cell.isRevealed());
-    }
-
-    @Test
-    void isWinAllNonMineCellsRevealedReturnTrue() {
         Cell mineCell = new Cell();
         mineCell.setMine(true);
         game.setCell(0, 0, mineCell);
+
+        gameEndHandler.handleMine(game, mineCell);
+
+        assertThat(game.isGameOver()).isTrue();
+        assertThat(mineCell.isRevealed()).isTrue();
+    }
+
+    @Test
+    void isWinAllNonMineCellsRevealedReturnsTrue() {
+        Cell mineCell = new Cell();
+        mineCell.setMine(true);
+        game.setCell(0, 0, mineCell);
+
         for (int row = 0; row < ROWS; row++) {
             for (int col = 0; col < COLS; col++) {
                 Cell cell = game.getCell(row, col);
@@ -47,19 +48,24 @@ class GameEndHandlerTest {
                 }
             }
         }
-        assertTrue(gameEndHandler.isWin(game));
+
+        assertThat(gameEndHandler.isWin(game)).isTrue();
+        assertThat(mineCell.isRevealed()).isFalse();
     }
 
     @Test
-    void revealAllMinesContainsMinesOnlyMinesRevealed() {
-        Cell cell = new Cell();
-        cell.setMine(true);
-        game.setCell(0, 0, cell);
+    void revealAllMinesWhenCalledRevealsOnlyMines() {
+        Cell mineCell = new Cell();
+        mineCell.setMine(true);
+        game.setCell(0, 0, mineCell);
+
         Cell emptyCell = new Cell();
         game.setCell(0, 1, emptyCell);
+
         gameEndHandler.revealAllMines(game);
-        assertTrue(cell.isRevealed());
-        assertFalse(emptyCell.isRevealed());
+
+        assertThat(mineCell.isRevealed()).isTrue();
+        assertThat(emptyCell.isRevealed()).isFalse();
     }
 
     private Game createDefaultGame() {

@@ -23,7 +23,7 @@ public class GameResultServiceImpl implements GameResultService {
     }
 
     @Override
-    public void saveResult(final GameResultDto gameResultDto) {
+    public void saveResult(GameResultDto gameResultDto) {
         gameResultRepository.save(gameResultMapper.toGameResult(gameResultDto));
     }
 
