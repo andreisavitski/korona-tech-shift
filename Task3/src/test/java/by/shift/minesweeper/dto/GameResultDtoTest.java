@@ -24,12 +24,7 @@ class GameResultDtoTest {
 
     @Test
     void validGameResultShouldPassValidation() {
-        GameResultDto dto = new GameResultDto();
-        dto.setPlayerName("Player");
-        dto.setWon(true);
-        dto.setMoves(5);
-        dto.setRemainingFlags(3);
-        dto.setTimestamp(LocalDateTime.now());
+        GameResultDto dto = createValidDto();
 
         Set<ConstraintViolation<GameResultDto>> violations = validator.validate(dto);
         assertThat(violations).isEmpty();
@@ -37,12 +32,8 @@ class GameResultDtoTest {
 
     @Test
     void playerNameBlankShouldFailValidation() {
-        GameResultDto dto = new GameResultDto();
+        GameResultDto dto = createValidDto();
         dto.setPlayerName("");
-        dto.setWon(true);
-        dto.setMoves(5);
-        dto.setRemainingFlags(3);
-        dto.setTimestamp(LocalDateTime.now());
 
         Set<ConstraintViolation<GameResultDto>> violations = validator.validate(dto);
         assertThat(violations)
@@ -53,12 +44,8 @@ class GameResultDtoTest {
 
     @Test
     void movesNegativeShouldFailValidation() {
-        GameResultDto dto = new GameResultDto();
-        dto.setPlayerName("Player");
-        dto.setWon(true);
+        GameResultDto dto = createValidDto();
         dto.setMoves(-1);
-        dto.setRemainingFlags(3);
-        dto.setTimestamp(LocalDateTime.now());
 
         Set<ConstraintViolation<GameResultDto>> violations = validator.validate(dto);
         assertThat(violations)
@@ -69,12 +56,8 @@ class GameResultDtoTest {
 
     @Test
     void remainingFlagsNegativeShouldFailValidation() {
-        GameResultDto dto = new GameResultDto();
-        dto.setPlayerName("Player");
-        dto.setWon(true);
-        dto.setMoves(5);
+        GameResultDto dto = createValidDto();
         dto.setRemainingFlags(-1);
-        dto.setTimestamp(LocalDateTime.now());
 
         Set<ConstraintViolation<GameResultDto>> violations = validator.validate(dto);
         assertThat(violations)
@@ -85,11 +68,7 @@ class GameResultDtoTest {
 
     @Test
     void timestampNullShouldFailValidation() {
-        GameResultDto dto = new GameResultDto();
-        dto.setPlayerName("Player");
-        dto.setWon(true);
-        dto.setMoves(5);
-        dto.setRemainingFlags(3);
+        GameResultDto dto = createValidDto();
         dto.setTimestamp(null);
 
         Set<ConstraintViolation<GameResultDto>> violations = validator.validate(dto);
@@ -101,11 +80,7 @@ class GameResultDtoTest {
 
     @Test
     void timestampInFutureShouldFailValidation() {
-        GameResultDto dto = new GameResultDto();
-        dto.setPlayerName("Player");
-        dto.setWon(true);
-        dto.setMoves(5);
-        dto.setRemainingFlags(3);
+        GameResultDto dto = createValidDto();
         dto.setTimestamp(LocalDateTime.now().plusDays(1));
 
         Set<ConstraintViolation<GameResultDto>> violations = validator.validate(dto);
@@ -113,5 +88,15 @@ class GameResultDtoTest {
                 .hasSize(1)
                 .extracting(ConstraintViolation::getMessage)
                 .containsExactly("Время не может быть в будущем");
+    }
+
+    private GameResultDto createValidDto() {
+        GameResultDto dto = new GameResultDto();
+        dto.setPlayerName("Player");
+        dto.setWon(true);
+        dto.setMoves(5);
+        dto.setRemainingFlags(3);
+        dto.setTimestamp(LocalDateTime.now());
+        return dto;
     }
 }
