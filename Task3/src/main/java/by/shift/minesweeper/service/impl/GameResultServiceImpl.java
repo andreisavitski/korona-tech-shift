@@ -30,7 +30,10 @@ public class GameResultServiceImpl implements GameResultService {
     @Override
     public List<GameResultDto> getResults() {
         return gameResultMapper.toDtoList(gameResultRepository.findAll().stream()
-                .sorted(Comparator.comparing(GameResult::getTimestamp).reversed())
+                .sorted(Comparator.comparing(
+                        GameResult::getTimestamp,
+                        Comparator.nullsFirst(Comparator.reverseOrder())
+                ))
                 .toList());
     }
 }
