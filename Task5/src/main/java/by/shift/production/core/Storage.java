@@ -5,7 +5,6 @@ import org.slf4j.Logger;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-import static java.time.LocalDateTime.now;
 import static org.slf4j.LoggerFactory.getLogger;
 
 public class Storage {
@@ -23,40 +22,40 @@ public class Storage {
         this.storageSize = storageSize;
     }
 
-    public void produce(Resource resource, int producerId) {
+    public void produce(Resource resource) {
         synchronized (this) {
             while (queue.size() >= storageSize) {
-                logger.debug("{}: Producer {} is waiting (storage is full)={})", now(), producerId, queue.size());
+                logger.debug("Waiting (storage is full: {},{})", queue.size(), storageSize);
                 try {
                     this.wait();
                 } catch (InterruptedException e) {
-                    logger.warn("{}: Producer {} terminated while waiting", now(), producerId, e);
+                    logger.warn("Producer terminated while waiting", e);
                     Thread.currentThread().interrupt();
                     return;
                 }
-                logger.debug("{}: Producer {} resumed", now(), producerId);
+                logger.debug("Producer resumed");
             }
             queue.addLast(resource);
-            logger.debug("{}: Producer {} produced resource={}; storage={}/{}", now(), producerId, resource.getUuid(), queue.size(), storageSize);
+            logger.debug("Produced resource={}; storage={}/{}", resource.getUuid(), queue.size(), storageSize);
             this.notifyAll();
         }
     }
 
-    public Resource consume(int consumerId) {
+    public Resource consume() {
         synchronized (this) {
             while (queue.isEmpty()) {
-                logger.debug("{}: Consumer {} is waiting (warehouse is full)", now(), consumerId);
+                logger.debug("Waiting (storage is empty)");
                 try {
                     this.wait();
                 } catch (InterruptedException e) {
-                    logger.warn("{}: Consumer {} terminated while waiting", now(), consumerId, e);
+                    logger.warn("Consumer terminated while waiting", e);
                     Thread.currentThread().interrupt();
                     return null;
                 }
-                logger.debug("{}: Consumer {} resumed", now(), consumerId);
+                logger.debug("Consumer resumed");
             }
             Resource resource = queue.removeFirst();
-            logger.debug("{}: Consumer {} produced resource={}; storage={}/{}", now(), consumerId, resource.getUuid(), queue.size(), storageSize);
+            logger.debug("Consume resource={}; storage={}/{}", resource.getUuid(), queue.size(), storageSize);
             this.notifyAll();
             return resource;
         }

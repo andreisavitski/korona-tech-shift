@@ -1,11 +1,11 @@
 package by.shift.production;
 
 import by.shift.production.config.Configuration;
-import by.shift.production.util.ExitUtil;
 import by.shift.production.util.ShutdownManager;
 import by.shift.production.util.WorkerStarter;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class ProductionRunner {
 
@@ -13,8 +13,10 @@ public class ProductionRunner {
 
     public static void main(String[] args) {
         Configuration configuration = Configuration.load(PROPERTIES_PATH);
-        List<Thread> threads = WorkerStarter.startWorkers(configuration);
+        List<Thread> threads = WorkerStarter.startWorkersWithRestart(configuration);
         ShutdownManager.registerShutdownHook(threads);
-        ExitUtil.exit();
+
+        new Scanner(System.in).nextLine();
+        System.exit(0);
     }
 }

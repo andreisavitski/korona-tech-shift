@@ -3,16 +3,12 @@ package by.shift.production.core;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
 
-import java.time.LocalDateTime;
-
 import static org.slf4j.LoggerFactory.getLogger;
 
 @AllArgsConstructor
 public class Producer extends Thread {
 
     private static final Logger logger = getLogger(Producer.class);
-
-    private final int id;
 
     private final Storage storage;
 
@@ -25,13 +21,13 @@ public class Producer extends Thread {
             try {
                 delay();
                 Resource resource = new Resource();
-                storage.produce(resource, id);
+                storage.produce(resource);
             } catch (InterruptedException e) {
-                logger.debug("{}: Producer {} stopped", LocalDateTime.now(), id);
+                logger.debug("Stopped");
                 Thread.currentThread().interrupt();
                 shouldExit = true;
             } catch (Exception e) {
-                logger.error("{}: Producer {}. Error: {}", LocalDateTime.now(), id, e.getMessage());
+                logger.error(e.getMessage());
             }
         }
     }
