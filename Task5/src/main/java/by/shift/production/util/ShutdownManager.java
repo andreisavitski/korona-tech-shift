@@ -10,11 +10,11 @@ import static org.slf4j.LoggerFactory.getLogger;
 @UtilityClass
 public class ShutdownManager {
 
-    private static final Logger logger = getLogger(ShutdownManager.class);
+    private final Logger LOG = getLogger(ShutdownManager.class);
 
     public void registerShutdownHook(List<Thread> threads) {
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            logger.debug("Request to interrupt all threads");
+            LOG.debug("Request to interrupt all threads");
             for (Thread thread : threads) {
                 thread.interrupt();
             }
@@ -23,10 +23,10 @@ public class ShutdownManager {
                     thread.join(2000);
                 } catch (InterruptedException e) {
                     Thread.currentThread().interrupt();
-                    logger.warn("Shutdown hook interrupted while waiting for thread: {}", thread.getName());
+                    LOG.warn("Shutdown hook interrupted while waiting for thread: {}", thread.getName());
                 }
             }
-            logger.debug("All threads are stopped");
+            LOG.debug("All threads are stopped");
         }));
     }
 }

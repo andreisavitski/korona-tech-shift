@@ -15,15 +15,17 @@ import static org.slf4j.LoggerFactory.getLogger;
 @UtilityClass
 public class WorkerStarter {
 
-    private static final Logger logger = getLogger(WorkerStarter.class);
+    private final Logger LOG = getLogger(WorkerStarter.class);
 
-    private static final Object LOCK = new Object();
+    private final Object LOCK = new Object();
 
-    private static final String PRODUCER_NAME = "producer";
+    private final String PRODUCER_NAME = "producer";
 
-    private static final String CONSUMER_NAME = "consumer";
+    private final String CONSUMER_NAME = "consumer";
 
-    private static final String MONITOR = "monitor";
+    private final String MONITOR = "monitor";
+
+    private final int DEFAULT_INDEX = 0;
 
     public List<Thread> startWorkersWithRestart(Configuration configuration) {
         Storage storage = new Storage(configuration.storageSize);
@@ -31,7 +33,7 @@ public class WorkerStarter {
 
         createProducers(workers, configuration, storage);
         createConsumers(workers, configuration, storage);
-        logger.debug("Started all workers");
+        LOG.debug("Started all workers");
 
         Thread monitor = new Thread(() -> monitorAndRestart(workers, storage, configuration));
         monitor.setName(MONITOR);
@@ -69,7 +71,7 @@ public class WorkerStarter {
                 for (int i = 0; i < workers.size(); i++) {
                     Thread thread = workers.get(i);
                     if (!thread.isAlive() && !MONITOR.equals(thread.getName())) {
-                        logger.warn("Thread {} is dead, restarting", thread.getName());
+                        LOG.warn("Thread {} is dead, restarting", thread.getName());
 
                         Thread newWorker = recreateWorker(thread.getName(), storage, configuration);
                         if (newWorker != null) {
@@ -103,7 +105,8 @@ public class WorkerStarter {
         try {
             return Integer.parseInt(name.substring(prefix.length()));
         } catch (Exception e) {
-            return 0;
+            LOG.warn("Failed to parse index from name={} with prefix={}", name, prefix);
+            return DEFAULT_INDEX;
         }
     }
 

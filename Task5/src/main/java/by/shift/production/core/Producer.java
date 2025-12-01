@@ -8,7 +8,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 @AllArgsConstructor
 public class Producer extends Thread {
 
-    private static final Logger logger = getLogger(Producer.class);
+    private static final Logger LOG = getLogger(Producer.class);
 
     private final Storage storage;
 
@@ -23,11 +23,11 @@ public class Producer extends Thread {
                 Resource resource = new Resource();
                 storage.produce(resource);
             } catch (InterruptedException e) {
-                logger.debug("Stopped");
+                LOG.debug("Stopped");
                 Thread.currentThread().interrupt();
                 shouldExit = true;
             } catch (Exception e) {
-                logger.error(e.getMessage());
+                LOG.error(e.getMessage());
             }
         }
     }

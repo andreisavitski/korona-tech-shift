@@ -9,7 +9,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 
 public class Storage {
 
-    private static final Logger logger = getLogger(Storage.class);
+    private static final Logger LOG = getLogger(Storage.class);
 
     private final Deque<Resource> queue = new ArrayDeque<>();
 
@@ -25,18 +25,18 @@ public class Storage {
     public void produce(Resource resource) {
         synchronized (this) {
             while (queue.size() >= storageSize) {
-                logger.debug("Waiting (storage is full: {},{})", queue.size(), storageSize);
+                LOG.debug("Waiting (storage is full: {},{})", queue.size(), storageSize);
                 try {
                     this.wait();
                 } catch (InterruptedException e) {
-                    logger.warn("Producer terminated while waiting", e);
+                    LOG.warn("Producer terminated while waiting", e);
                     Thread.currentThread().interrupt();
                     return;
                 }
-                logger.debug("Producer resumed");
+                LOG.debug("Producer resumed");
             }
             queue.addLast(resource);
-            logger.debug("Produced resource={}; storage={}/{}", resource.getUuid(), queue.size(), storageSize);
+            LOG.debug("Produced resource={}; storage={}/{}", resource.getUuid(), queue.size(), storageSize);
             this.notifyAll();
         }
     }
@@ -44,18 +44,18 @@ public class Storage {
     public Resource consume() {
         synchronized (this) {
             while (queue.isEmpty()) {
-                logger.debug("Waiting (storage is empty)");
+                LOG.debug("Waiting (storage is empty)");
                 try {
                     this.wait();
                 } catch (InterruptedException e) {
-                    logger.warn("Consumer terminated while waiting", e);
+                    LOG.warn("Consumer terminated while waiting", e);
                     Thread.currentThread().interrupt();
                     return null;
                 }
-                logger.debug("Consumer resumed");
+                LOG.debug("Consumer resumed");
             }
             Resource resource = queue.removeFirst();
-            logger.debug("Consume resource={}; storage={}/{}", resource.getUuid(), queue.size(), storageSize);
+            LOG.debug("Consume resource={}; storage={}/{}", resource.getUuid(), queue.size(), storageSize);
             this.notifyAll();
             return resource;
         }
